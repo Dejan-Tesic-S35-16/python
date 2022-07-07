@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if 'ulogovani_username' not in session%}
+    <a href="/login">Login</a>
+    
+    {% elif session['tip_korisnika'] == 2 %}
+    <table border="1" style="border-collapse: collapse;">
+        <tr>
+            <th>id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>email</th>
+            <th>privilegija</th>
+
+        </tr>
+        {% for i in rez%}
+        <tr>
+            <td>{{i[0]}}</td>
+            <td>{{i[1]}}</td>
+            <td>{{i[2]}}</td>
+            <td>{{i[3]}}</td>
+            <td>{{i[4]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <a href="/logout">Logout</a>
+    {% elif session['tip_korisnika'] == 1 %}
+    <table border="1" style="border-collapse: collapse;">
+        <tr>
+            <th>id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>email</th>
+            <th>privilegija</th>
+            <th>delete</th>
+            <th>update</th>
+
+        </tr>
+        {% for i in rez%}
+        <tr>
+            <td>{{i[0]}}</td>
+            <td>{{i[1]}}</td>
+            <td>{{i[2]}}</td>
+            <td>{{i[3]}}</td>
+            <td>{{i[4]}}</td>
+            <td>
+            <form action="/delete/{{i[0]}}" method="POST">
+                <input type="submit" value="delete">
+            </form>
+            </td>
+            <td>
+                <a href="/update/{{i[0]}}">Update</a>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    <a href="/logout">Logout</a>
+    {%endif%}
+</body>
+</html>
